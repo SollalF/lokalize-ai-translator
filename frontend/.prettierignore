@@ -1,0 +1,28 @@
+# Build output
+dist
+dist-ssr
+
+# Dependencies
+node_modules
+
+# Logs
+*.log
+
+# Cache
+.cache
+.temp
+
+# Environment files
+.env*
+!.env.example
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw? 

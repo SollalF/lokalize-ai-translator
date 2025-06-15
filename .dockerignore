@@ -1,0 +1,33 @@
+# Version control
+.git
+.gitignore
+
+# Dependencies
+**/node_modules
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+**/.ruff_cache
+**/.venv
+**/backend.egg-info
+
+# Build outputs
+**/dist
+**/build
+
+# Environment files
+**/.env
+**/.env.*
+
+# IDE files
+**/.vscode
+**/.idea
+**/*.swp
+**/*.swo
+
+# Logs
+**/*.log
+
+# System files
+**/.DS_Store
+**/Thumbs.db 

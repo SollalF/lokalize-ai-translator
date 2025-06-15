@@ -1,0 +1,11 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+ - Use pnpm for node packages
+ - Use uv for python packages
+ - Whenever possible, use pyproject.toml over a custom config file
+ - Use shadcn components
+ - I use pyproject.toml in my backend folder for my python packages
+ - I use ruff and basedpyright for linting and formatting python
