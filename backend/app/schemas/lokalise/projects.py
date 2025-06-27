@@ -1,3 +1,5 @@
+from typing import Literal
+
 from pydantic import BaseModel, Field
 
 from .languages import BaseLanguage
@@ -182,6 +184,48 @@ class Project(BaseModel):
     )
 
 
+# Request schemas for creating projects
+class ProjectLanguageRequest(BaseModel):
+    """Language object for project creation request."""
+
+    lang_iso: str = Field(..., description="Language/locale code")
+    custom_iso: str | None = Field(
+        None, description="Custom language code if different from lang_iso"
+    )
+
+
+class ProjectCreateRequest(BaseModel):
+    """Request schema for creating a new project."""
+
+    name: str = Field(..., description="Name of the project")
+    team_id: int | None = Field(
+        None,
+        description="ID of the team to create a project in. If omitted, project will be created in current team",
+    )
+    description: str | None = Field(None, description="Description of the project")
+    languages: list[ProjectLanguageRequest] = Field(
+        default_factory=list, description="List of languages to add"
+    )
+    base_lang_iso: str | None = Field(
+        None,
+        description="Language/locale code of the project base language. Should be in scope of languages list",
+    )
+    project_type: Literal["localization_files", "paged_documents"] | None = Field(
+        "localization_files",
+        description="Project type. Allowed values are localization_files or paged_documents",
+    )
+    is_segmentation_enabled: bool | None = Field(
+        False, description="Enable Segmentation feature for project"
+    )
+
+
+class ProjectUpdateRequest(BaseModel):
+    """Request schema for updating an existing project."""
+
+    name: str = Field(..., description="Name of the project")
+    description: str | None = Field(None, description="Description of the project")
+
+
 class ProjectResponse(BaseModel):
     """Response schema for project operations."""
 
@@ -192,3 +236,21 @@ class ProjectsResponse(BaseModel):
     """Response schema for multiple projects."""
 
     projects: list[Project]
+
+
+class ProjectDeleteResponse(BaseModel):
+    """Response schema for project deletion."""
+
+    project_id: str = Field(..., description="A unique project identifier")
+    project_deleted: bool = Field(
+        ..., description="Whether the project was successfully deleted"
+    )
+
+
+class ProjectEmptyResponse(BaseModel):
+    """Response schema for emptying a project (deleting all keys and translations)."""
+
+    project_id: str = Field(..., description="A unique project identifier")
+    keys_deleted: bool = Field(
+        ..., description="Whether the keys were successfully deleted"
+    )
