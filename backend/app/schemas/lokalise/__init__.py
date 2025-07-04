@@ -9,59 +9,65 @@ from .glossary import (
     GlossaryTermsCreateMeta,
     GlossaryTermsCreateResponse,
     GlossaryTermsDelete,
+    GlossaryTermsDeleteData,
+    GlossaryTermsDeletedInfo,
+    GlossaryTermsDeleteFailedInfo,
     GlossaryTermsDeleteResponse,
     GlossaryTermsResponse,
     GlossaryTermsUpdate,
     GlossaryTermsUpdateMeta,
     GlossaryTermsUpdateResponse,
+    GlossaryTermTranslationUpdate,
     GlossaryTermUpdate,
 )
 
-# Keys
+# Keys schemas
 from .keys import (
-    KeyComment,
+    KeyCommentCreate,
     KeyCreate,
-    KeyCreateMeta,
-    KeyFilenames,
-    KeysCreate,
-    KeysCreateResponse,
-    KeyScreenshot,
+    KeyFilename,
+    KeysCreateRequest,
+    KeyScreenshotCreate,
+    KeysDeleteRequest,
+    KeysDeleteResponse,
+    KeysUpdateRequest,
     KeyTranslation,
-    LokaliseKeyFilters,
-    PlatformKeyNames,
-    TranslationKey,
-    TranslationMetadata,
+    KeyTranslationCreate,
+    KeyTranslationUpdate,
+    KeyUpdate,
+    KeyUpdateResponse,
+    ProjectKeysResponse,
 )
 
 # Languages
 from .languages import (
+    BaseLanguage,
     Language,
-    LanguageFilters,
-    LanguagesListResponse,
-    ProjectLanguageFilters,
+    LanguageResponse,
+    LanguagesResponse,
+    ProjectLanguageResponse,
     ProjectLanguagesResponse,
 )
 
 # Projects
 from .projects import (
     Project,
-    ProjectCreate,
-    ProjectFilters,
     ProjectLanguage,
     ProjectSettings,
-    ProjectsListResponse,
     ProjectStatistics,
-    ProjectUpdate,
     QAIssues,
+)
+
+# Tokens
+from .tokens import (
+    ServiceTokenCreateRequest,
+    ServiceTokenResponse,
 )
 
 # Translations
 from .translations import (
     CustomTranslationStatus,
     Translation,
-    TranslationCreate,
-    TranslationFilters,
-    TranslationUpdate,
 )
 
 __all__ = [
@@ -69,10 +75,14 @@ __all__ = [
     "GlossaryTerm",
     "GlossaryTermCreate",
     "GlossaryTermUpdate",
+    "GlossaryTermTranslationUpdate",
     "GlossaryTermResponse",
     "GlossaryTermsCreate",
     "GlossaryTermsUpdate",
     "GlossaryTermsDelete",
+    "GlossaryTermsDeleteData",
+    "GlossaryTermsDeletedInfo",
+    "GlossaryTermsDeleteFailedInfo",
     "GlossaryTermsDeleteResponse",
     "GlossaryTermsUpdateResponse",
     "GlossaryTermsUpdateMeta",
@@ -83,29 +93,35 @@ __all__ = [
     "GlossaryTermMeta",
     # Keys
     "KeyComment",
+    "KeyCommentCreate",
     "KeyCreate",
     "KeyCreateMeta",
-    "KeyFilenames",
+    "KeyFilename",
     "KeyScreenshot",
+    "KeyScreenshotCreate",
     "KeysCreate",
+    "KeysCreateRequest",
     "KeysCreateResponse",
+    "KeysDeleteRequest",
+    "KeysDeleteResponse",
+    "KeysUpdateRequest",
     "KeyTranslation",
+    "KeyTranslationCreate",
+    "KeyTranslationUpdate",
+    "KeyUpdate",
+    "KeyUpdateResponse",
     "LokaliseKeyFilters",
     "PlatformKeyNames",
+    "ProjectKeysResponse",
     "TranslationMetadata",
     "TranslationKey",
     # Languages
+    "BaseLanguage",
     "Language",
-    "LanguageFilters",
-    "LanguagesListResponse",
-    "ProjectLanguageFilters",
+    "LanguageResponse",
+    "LanguagesResponse",
     "ProjectLanguagesResponse",
-    # Translations
-    "CustomTranslationStatus",
-    "Translation",
-    "TranslationUpdate",
-    "TranslationCreate",
-    "TranslationFilters",
+    "ProjectLanguageResponse",
     # Projects
     "ProjectSettings",
     "QAIssues",
@@ -116,4 +132,13 @@ __all__ = [
     "ProjectUpdate",
     "ProjectFilters",
     "ProjectsListResponse",
+    # Tokens
+    "ServiceTokenCreateRequest",
+    "ServiceTokenResponse",
+    # Translations
+    "CustomTranslationStatus",
+    "Translation",
+    "TranslationUpdate",
+    "TranslationCreate",
+    "TranslationFilters",
 ]
