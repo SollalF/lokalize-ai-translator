@@ -47,35 +47,7 @@ async def list_projects(
 
     Requires read_projects OAuth access scope.
     """
-    try:
-        # TODO: Implement service call to Lokalise API
-        # For now, this is a placeholder that will be implemented later
-        # when the service layer is ready
-
-        # The service call would look something like:
-        # projects_data = await lokalise_projects_service.list_projects(
-        #     filter_team_id=filter_team_id,
-        #     filter_names=filter_names,
-        #     include_statistics=bool(include_statistics),
-        #     include_settings=bool(include_settings),
-        #     limit=limit,
-        #     page=page,
-        # )
-
-        # For now, return empty response
-        # When service is implemented, this will be replaced with actual data
-        projects_data = {"projects": []}
-
-        # The service would also provide total count for X-Total-Count header
-        # total_count = projects_data.get("total_count", 0)
-        # response.headers["X-Total-Count"] = str(total_count)
-
-        return ProjectsResponse(**projects_data)
-
-    except Exception as e:
-        raise HTTPException(
-            status_code=500, detail=f"Failed to retrieve projects: {e!s}"
-        )
+    raise HTTPException(status_code=501, detail="Not implemented")
 
 
 @router.post("", response_model=ProjectResponse, status_code=201)
@@ -88,83 +60,7 @@ async def create_project(request: ProjectCreateRequest):
 
     Requires write_projects OAuth access scope.
     """
-    try:
-        # TODO: Implement service call to Lokalise API
-        # For now, this is a placeholder that will be implemented later
-        # when the service layer is ready
-
-        # The service call would look something like:
-        # project_data = await lokalise_projects_service.create_project(
-        #     name=request.name,
-        #     team_id=request.team_id,
-        #     description=request.description,
-        #     languages=request.languages,
-        #     base_lang_iso=request.base_lang_iso,
-        #     project_type=request.project_type,
-        #     is_segmentation_enabled=request.is_segmentation_enabled,
-        # )
-
-        # For now, return a mock response structure
-        # When service is implemented, this will be replaced with actual data
-        mock_project_data = {
-            "project": {
-                "project_id": "placeholder_project_id",
-                "project_type": request.project_type or "localization_files",
-                "name": request.name,
-                "description": request.description or "",
-                "created_at": "2024-01-01T00:00:00Z",
-                "created_at_timestamp": 1704067200,
-                "created_by": 1,
-                "created_by_email": "user@example.com",
-                "team_id": request.team_id or 1,
-                "base_language_id": 1,
-                "base_language_iso": request.base_lang_iso or "en",
-                "settings": {
-                    "per_platform_key_names": False,
-                    "reviewing": False,
-                    "auto_toggle_unverified": True,
-                    "offline_translation": False,
-                    "key_editing": True,
-                    "inline_machine_translations": False,
-                    "branching": False,
-                    "segmentation": request.is_segmentation_enabled or False,
-                    "custom_translation_statuses": False,
-                    "custom_translation_statuses_allow_multiple": False,
-                    "contributor_preview_download_enabled": False,
-                },
-                "statistics": {
-                    "progress_total": 0.0,
-                    "keys_total": 0,
-                    "team": 1,
-                    "base_words": 0,
-                    "qa_issues_total": 0,
-                    "qa_issues": {
-                        "not_reviewed": 0,
-                        "unverified": 0,
-                        "spelling_grammar": 0,
-                        "inconsistent_placeholders": 0,
-                        "inconsistent_html": 0,
-                        "different_number_of_urls": 0,
-                        "different_urls": 0,
-                        "leading_whitespace": 0,
-                        "trailing_whitespace": 0,
-                        "different_number_of_email_address": 0,
-                        "different_email_address": 0,
-                        "different_brackets": 0,
-                        "different_numbers": 0,
-                        "double_space": 0,
-                        "special_placeholder": 0,
-                        "unbalanced_brackets": 0,
-                    },
-                },
-                "languages": [],
-            }
-        }
-
-        return ProjectResponse(**mock_project_data)
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to create project: {e!s}")
+    raise HTTPException(status_code=501, detail="Not implemented")
 
 
 @router.get("/{project_id}", response_model=ProjectResponse)
@@ -179,101 +75,7 @@ async def get_project(
 
     Requires read_projects OAuth access scope.
     """
-    try:
-        # TODO: Implement service call to Lokalise API
-        # For now, this is a placeholder that will be implemented later
-        # when the service layer is ready
-
-        # The service call would look something like:
-        # project_data = await lokalise_projects_service.get_project(
-        #     project_id=project_id
-        # )
-
-        # For now, return a mock response structure
-        # When service is implemented, this will be replaced with actual data
-        mock_project_data = {
-            "project": {
-                "project_id": project_id,
-                "project_type": "localization_files",
-                "name": f"Project {project_id}",
-                "description": "Sample project description",
-                "created_at": "2024-01-01T00:00:00Z",
-                "created_at_timestamp": 1704067200,
-                "created_by": 1,
-                "created_by_email": "user@example.com",
-                "team_id": 1,
-                "base_language_id": 1,
-                "base_language_iso": "en",
-                "settings": {
-                    "per_platform_key_names": False,
-                    "reviewing": True,
-                    "auto_toggle_unverified": True,
-                    "offline_translation": False,
-                    "key_editing": True,
-                    "inline_machine_translations": False,
-                    "branching": False,
-                    "segmentation": False,
-                    "custom_translation_statuses": False,
-                    "custom_translation_statuses_allow_multiple": False,
-                    "contributor_preview_download_enabled": False,
-                },
-                "statistics": {
-                    "progress_total": 75.5,
-                    "keys_total": 150,
-                    "team": 5,
-                    "base_words": 1200,
-                    "qa_issues_total": 3,
-                    "qa_issues": {
-                        "not_reviewed": 1,
-                        "unverified": 2,
-                        "spelling_grammar": 0,
-                        "inconsistent_placeholders": 0,
-                        "inconsistent_html": 0,
-                        "different_number_of_urls": 0,
-                        "different_urls": 0,
-                        "leading_whitespace": 0,
-                        "trailing_whitespace": 0,
-                        "different_number_of_email_address": 0,
-                        "different_email_address": 0,
-                        "different_brackets": 0,
-                        "different_numbers": 0,
-                        "double_space": 0,
-                        "special_placeholder": 0,
-                        "unbalanced_brackets": 0,
-                    },
-                },
-                "languages": [
-                    {
-                        "lang_id": 1,
-                        "lang_iso": "en",
-                        "lang_name": "English",
-                        "progress": 100.0,
-                        "words_to_do": 0,
-                    },
-                    {
-                        "lang_id": 2,
-                        "lang_iso": "es",
-                        "lang_name": "Spanish",
-                        "progress": 68.5,
-                        "words_to_do": 378,
-                    },
-                    {
-                        "lang_id": 3,
-                        "lang_iso": "fr",
-                        "lang_name": "French",
-                        "progress": 58.2,
-                        "words_to_do": 502,
-                    },
-                ],
-            }
-        }
-
-        return ProjectResponse(**mock_project_data)
-
-    except Exception as e:
-        raise HTTPException(
-            status_code=500, detail=f"Failed to retrieve project: {e!s}"
-        )
+    raise HTTPException(status_code=501, detail="Not implemented")
 
 
 @router.put("/{project_id}", response_model=ProjectResponse)
@@ -289,101 +91,7 @@ async def update_project(
 
     Requires write_projects OAuth access scope.
     """
-    try:
-        # TODO: Implement service call to Lokalise API
-        # For now, this is a placeholder that will be implemented later
-        # when the service layer is ready
-
-        # The service call would look something like:
-        # project_data = await lokalise_projects_service.update_project(
-        #     project_id=project_id,
-        #     name=request.name,
-        #     description=request.description,
-        # )
-
-        # For now, return a mock response structure with updated data
-        # When service is implemented, this will be replaced with actual data
-        mock_project_data = {
-            "project": {
-                "project_id": project_id,
-                "project_type": "localization_files",
-                "name": request.name,  # Updated name
-                "description": request.description or "",  # Updated description
-                "created_at": "2024-01-01T00:00:00Z",
-                "created_at_timestamp": 1704067200,
-                "created_by": 1,
-                "created_by_email": "user@example.com",
-                "team_id": 1,
-                "base_language_id": 1,
-                "base_language_iso": "en",
-                "settings": {
-                    "per_platform_key_names": False,
-                    "reviewing": True,
-                    "auto_toggle_unverified": True,
-                    "offline_translation": False,
-                    "key_editing": True,
-                    "inline_machine_translations": False,
-                    "branching": False,
-                    "segmentation": False,
-                    "custom_translation_statuses": False,
-                    "custom_translation_statuses_allow_multiple": False,
-                    "contributor_preview_download_enabled": False,
-                },
-                "statistics": {
-                    "progress_total": 75.5,
-                    "keys_total": 150,
-                    "team": 5,
-                    "base_words": 1200,
-                    "qa_issues_total": 3,
-                    "qa_issues": {
-                        "not_reviewed": 1,
-                        "unverified": 2,
-                        "spelling_grammar": 0,
-                        "inconsistent_placeholders": 0,
-                        "inconsistent_html": 0,
-                        "different_number_of_urls": 0,
-                        "different_urls": 0,
-                        "leading_whitespace": 0,
-                        "trailing_whitespace": 0,
-                        "different_number_of_email_address": 0,
-                        "different_email_address": 0,
-                        "different_brackets": 0,
-                        "different_numbers": 0,
-                        "double_space": 0,
-                        "special_placeholder": 0,
-                        "unbalanced_brackets": 0,
-                    },
-                },
-                "languages": [
-                    {
-                        "lang_id": 1,
-                        "lang_iso": "en",
-                        "lang_name": "English",
-                        "progress": 100.0,
-                        "words_to_do": 0,
-                    },
-                    {
-                        "lang_id": 2,
-                        "lang_iso": "es",
-                        "lang_name": "Spanish",
-                        "progress": 68.5,
-                        "words_to_do": 378,
-                    },
-                    {
-                        "lang_id": 3,
-                        "lang_iso": "fr",
-                        "lang_name": "French",
-                        "progress": 58.2,
-                        "words_to_do": 502,
-                    },
-                ],
-            }
-        }
-
-        return ProjectResponse(**mock_project_data)
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to update project: {e!s}")
+    raise HTTPException(status_code=501, detail="Not implemented")
 
 
 @router.delete("/{project_id}", response_model=ProjectDeleteResponse)
@@ -398,24 +106,7 @@ async def delete_project(
 
     Requires write_projects OAuth access scope.
     """
-    try:
-        # TODO: Implement service call to Lokalise API
-        # For now, this is a placeholder that will be implemented later
-        # when the service layer is ready
-
-        # The service call would look something like:
-        # delete_result = await lokalise_projects_service.delete_project(
-        #     project_id=project_id
-        # )
-
-        # For now, return a mock response indicating successful deletion
-        # When service is implemented, this will be replaced with actual result
-        delete_response = {"project_id": project_id, "project_deleted": True}
-
-        return ProjectDeleteResponse(**delete_response)
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to delete project: {e!s}")
+    raise HTTPException(status_code=501, detail="Not implemented")
 
 
 @router.put("/{project_id}/empty", response_model=ProjectEmptyResponse)
@@ -430,21 +121,4 @@ async def empty_project(
 
     Requires write_projects OAuth access scope.
     """
-    try:
-        # TODO: Implement service call to Lokalise API
-        # For now, this is a placeholder that will be implemented later
-        # when the service layer is ready
-
-        # The service call would look something like:
-        # empty_result = await lokalise_projects_service.empty_project(
-        #     project_id=project_id
-        # )
-
-        # For now, return a mock response indicating successful emptying
-        # When service is implemented, this will be replaced with actual result
-        empty_response = {"project_id": project_id, "keys_deleted": True}
-
-        return ProjectEmptyResponse(**empty_response)
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to empty project: {e!s}")
+    raise HTTPException(status_code=501, detail="Not implemented")
