@@ -14,6 +14,7 @@ class Language(BaseLanguage):
 
     is_rtl: bool = Field(..., description="Whether the language is Right-To-Left")
     plural_forms: list[str] = Field(..., description="List of supported plural forms")
+    cc_iso: str = Field(..., description="Country code, associated with the language")
 
 
 class LanguageResponse(BaseModel):
@@ -26,3 +27,19 @@ class LanguagesResponse(BaseModel):
     """Response schema for multiple languages."""
 
     languages: list[Language]
+
+
+class ProjectLanguagesResponse(BaseModel):
+    """Response schema for project languages."""
+
+    project_id: str = Field(..., description="A unique project identifier")
+    languages: list[Language] = Field(
+        ..., description="List of languages in the project"
+    )
+
+
+class ProjectLanguageResponse(BaseModel):
+    """Response schema for retrieving a single project language."""
+
+    project_id: str = Field(..., description="A unique project identifier")
+    language: Language = Field(..., description="The language object")
