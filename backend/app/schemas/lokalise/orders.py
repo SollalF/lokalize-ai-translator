@@ -66,3 +66,42 @@ class OrdersResponse(BaseModel):
     """Response schema for multiple orders."""
 
     orders: list[Order]
+
+
+class OrderCreateRequest(BaseModel):
+    """Request schema for creating a translation order."""
+
+    project_id: str = Field(..., description="Project identifier")
+    branch: str | None = Field(None, description="Branch name")
+    payment_method: str = Field(
+        "credit_card",
+        description="Payment method. Possible values are credit_card (default) or team_credit",
+    )
+    card_id: int | None = Field(
+        None,
+        description="Identifier of the card used for payment. Required if payment_method = credit_card",
+    )
+    briefing: str = Field(..., description="Order briefing")
+    source_language_iso: str = Field(
+        ..., description="Source language code of the order"
+    )
+    target_language_isos: list[str] = Field(..., description="List of target languages")
+    keys: list[str] = Field(
+        ..., description="List of keys identifiers, included in the order"
+    )
+    provider_slug: str = Field(..., description="Translation provider slug")
+    translation_tier: int = Field(
+        ..., description="Tier of the translation. Tiers depend on provider"
+    )
+    is_saved_to_translation_memory: bool = Field(
+        True,
+        description="Default true, can be set only with google and deepl providers",
+    )
+    dry_run: bool = Field(
+        False,
+        description="Return the response without actually placing an order. Useful for price estimation",
+    )
+    translation_style: str | None = Field(
+        None,
+        description="Only for gengo provider. Available values are formal, informal, business, friendly. Defaults to friendly",
+    )

@@ -43,10 +43,20 @@ from .keys import (
 from .languages import (
     BaseLanguage,
     Language,
+    LanguageDeleteResponse,
     LanguageResponse,
     LanguagesResponse,
+    LanguageUpdateRequest,
     ProjectLanguageResponse,
     ProjectLanguagesResponse,
+)
+
+# Orders
+from .orders import (
+    Order,
+    OrderCreateRequest,
+    OrderResponse,
+    OrdersResponse,
 )
 
 # Projects
@@ -122,6 +132,13 @@ __all__ = [
     "LanguagesResponse",
     "ProjectLanguagesResponse",
     "ProjectLanguageResponse",
+    "LanguageUpdateRequest",
+    "LanguageDeleteResponse",
+    # Orders
+    "Order",
+    "OrderCreateRequest",
+    "OrderResponse",
+    "OrdersResponse",
     # Projects
     "ProjectSettings",
     "QAIssues",
