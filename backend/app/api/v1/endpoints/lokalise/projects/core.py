@@ -13,40 +13,7 @@ from app.schemas.lokalise.projects import (
 router = APIRouter(tags=["lokalise-projects"])
 
 
-@router.get("/", response_model=ProjectResponse)
-async def get_project(
-    project_id: str = Path(..., description="A unique project identifier"),
-):
-    """Retrieve a project object (placeholder 501)."""
-    raise HTTPException(status_code=501, detail="Not implemented")
-
-
-@router.put("/", response_model=ProjectResponse)
-async def update_project(
-    request: ProjectUpdateRequest,
-    project_id: str = Path(..., description="A unique project identifier"),
-):
-    """Update project (placeholder)."""
-    raise HTTPException(status_code=501, detail="Not implemented")
-
-
-@router.delete("/", response_model=ProjectDeleteResponse)
-async def delete_project(
-    project_id: str = Path(..., description="A unique project identifier"),
-):
-    """Delete project (placeholder)."""
-    raise HTTPException(status_code=501, detail="Not implemented")
-
-
-@router.put("/empty", response_model=ProjectEmptyResponse)
-async def empty_project(
-    project_id: str = Path(..., description="A unique project identifier"),
-):
-    """Empty project (placeholder)."""
-    raise HTTPException(status_code=501, detail="Not implemented")
-
-
-@router.get("{project_id}/", response_model=ProjectsResponse)
+@router.get("/", response_model=ProjectsResponse)
 async def list_projects(
     response: Response,
     filter_team_id: int | None = Query(None, description="Limit results to team ID"),
@@ -66,10 +33,10 @@ async def list_projects(
         le=1,
     ),
     limit: int | None = Query(
-        100, description="Number of items to include (max 5000)", ge=1, le=5000
+        None, description="Number of items to include (max 5000)", ge=1, le=5000
     ),
     page: int | None = Query(
-        1, description="Return results starting from this page", ge=1
+        None, description="Return results starting from this page", ge=1
     ),
 ):
     """
@@ -83,7 +50,7 @@ async def list_projects(
     raise HTTPException(status_code=501, detail="Not implemented")
 
 
-@router.post("{project_id}/", response_model=ProjectResponse, status_code=201)
+@router.post("/", response_model=ProjectResponse, status_code=201)
 async def create_project(request: ProjectCreateRequest):
     """
     Creates a new project in the specified team. Requires Admin role in the team.
@@ -92,5 +59,87 @@ async def create_project(request: ProjectCreateRequest):
     POST https://api.lokalise.com/api2/projects
 
     Requires write_projects OAuth access scope.
+    """
+    raise HTTPException(status_code=501, detail="Not implemented")
+
+
+@router.get("/{project_id}", response_model=ProjectResponse)
+async def get_project(
+    project_id: str = Path(..., description="A unique project identifier"),
+):
+    """
+    Retrieve a Project object.
+
+    Retrieves a Project object.
+
+    Requires read_projects OAuth access scope.
+
+    Args:
+        project_id: A unique project identifier
+
+    Returns:
+        ProjectResponse: Complete project object with settings, statistics, and languages
+    """
+    raise HTTPException(status_code=501, detail="Not implemented")
+
+
+@router.put("/{project_id}", response_model=ProjectResponse)
+async def update_project(
+    request: ProjectUpdateRequest,
+    project_id: str = Path(..., description="A unique project identifier"),
+):
+    """
+    Update the details of a project.
+
+    Updates the details of a project. Requires Manage settings admin right.
+
+    Requires write_projects OAuth access scope.
+
+    Args:
+        request: Project update data (name required, description optional)
+        project_id: A unique project identifier
+
+    Returns:
+        ProjectResponse: Updated project object with settings, statistics, and languages
+    """
+    raise HTTPException(status_code=501, detail="Not implemented")
+
+
+@router.delete("/{project_id}", response_model=ProjectDeleteResponse)
+async def delete_project(
+    project_id: str = Path(..., description="A unique project identifier"),
+):
+    """
+    Delete a project.
+
+    Deletes a project.
+
+    Requires write_projects OAuth access scope.
+
+    Args:
+        project_id: A unique project identifier
+
+    Returns:
+        ProjectDeleteResponse: Deletion status with project_id and project_deleted boolean
+    """
+    raise HTTPException(status_code=501, detail="Not implemented")
+
+
+@router.put("/{project_id}/empty", response_model=ProjectEmptyResponse)
+async def empty_project(
+    project_id: str = Path(..., description="A unique project identifier"),
+):
+    """
+    Delete all keys and translations from the project.
+
+    Deletes all keys and translations from the project. Requires Manage settings admin right.
+
+    Requires write_projects OAuth access scope.
+
+    Args:
+        project_id: A unique project identifier
+
+    Returns:
+        ProjectEmptyResponse: Deletion status with project_id and keys_deleted boolean
     """
     raise HTTPException(status_code=501, detail="Not implemented")
