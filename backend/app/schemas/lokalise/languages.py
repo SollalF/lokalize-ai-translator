@@ -43,3 +43,20 @@ class ProjectLanguageResponse(BaseModel):
 
     project_id: str = Field(..., description="A unique project identifier")
     language: Language = Field(..., description="The language object")
+
+
+class LanguageUpdateRequest(BaseModel):
+    """Request schema for updating a language."""
+
+    lang_iso: str | None = Field(None, description="Language/locale code")
+    lang_name: str | None = Field(None, description="Language name")
+    plural_forms: list[str] | None = Field(
+        None, description="List of supported plural forms"
+    )
+
+
+class LanguageDeleteResponse(BaseModel):
+    """Response schema for deleting a language."""
+
+    project_id: str = Field(..., description="A unique project identifier")
+    language_deleted: bool = Field(..., description="Whether the language was deleted")
