@@ -59,6 +59,25 @@ from .orders import (
     OrdersResponse,
 )
 
+# Payment Cards
+from .payment_cards import (
+    PaymentCard,
+    PaymentCardCreateRequest,
+    PaymentCardDeleteResponse,
+    PaymentCardResponse,
+    PaymentCardsResponse,
+    UserPaymentCardResponse,
+    UserPaymentCardsResponse,
+)
+
+# Permission Templates
+from .permission_templates import (
+    PermissionTemplate,
+    PermissionTemplateResponse,
+    PermissionTemplatesResponse,
+    TeamRolesResponse,
+)
+
 # Projects
 from .projects import (
     Project,
@@ -139,6 +158,19 @@ __all__ = [
     "OrderCreateRequest",
     "OrderResponse",
     "OrdersResponse",
+    # Payment Cards
+    "PaymentCard",
+    "PaymentCardCreateRequest",
+    "PaymentCardDeleteResponse",
+    "PaymentCardResponse",
+    "PaymentCardsResponse",
+    "UserPaymentCardResponse",
+    "UserPaymentCardsResponse",
+    # Permission Templates
+    "PermissionTemplate",
+    "PermissionTemplateResponse",
+    "PermissionTemplatesResponse",
+    "TeamRolesResponse",
     # Projects
     "ProjectSettings",
     "QAIssues",
