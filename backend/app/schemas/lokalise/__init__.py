@@ -87,6 +87,15 @@ from .projects import (
     QAIssues,
 )
 
+# Queued Processes
+from .queued_processes import (
+    ProjectProcessesResponse,
+    ProjectProcessResponse,
+    QueuedProcess,
+    QueuedProcessesResponse,
+    QueuedProcessResponse,
+)
+
 # Tokens
 from .tokens import (
     ServiceTokenCreateRequest,
@@ -181,6 +190,12 @@ __all__ = [
     "ProjectUpdate",
     "ProjectFilters",
     "ProjectsListResponse",
+    # Queued Processes
+    "ProjectProcessesResponse",
+    "ProjectProcessResponse",
+    "QueuedProcess",
+    "QueuedProcessesResponse",
+    "QueuedProcessResponse",
     # Tokens
     "ServiceTokenCreateRequest",
     "ServiceTokenResponse",

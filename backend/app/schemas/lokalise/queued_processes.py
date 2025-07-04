@@ -39,3 +39,17 @@ class QueuedProcessesResponse(BaseModel):
     """Response schema for multiple queued processes."""
 
     processes: list[QueuedProcess]
+
+
+class ProjectProcessesResponse(BaseModel):
+    """Response schema for project queued processes."""
+
+    project_id: str = Field(..., description="A unique project identifier")
+    processes: list[QueuedProcess] = Field(..., description="List of queued processes")
+
+
+class ProjectProcessResponse(BaseModel):
+    """Response schema for single project queued process."""
+
+    project_id: str = Field(..., description="A unique project identifier")
+    process: QueuedProcess = Field(..., description="Single queued process")
