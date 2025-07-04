@@ -36,3 +36,11 @@ class PermissionTemplatesResponse(BaseModel):
     """Response schema for multiple permission templates."""
 
     permission_templates: list[PermissionTemplate]
+
+
+class TeamRolesResponse(BaseModel):
+    """Response schema for team roles (permission templates)."""
+
+    roles: list[PermissionTemplate] = Field(
+        ..., description="List of permission templates for the team"
+    )
