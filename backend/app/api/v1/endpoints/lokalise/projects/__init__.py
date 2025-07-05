@@ -13,6 +13,7 @@ from .segments import router as segments_router
 from .snapshots import router as snapshots_router
 from .tasks import router as tasks_router
 from .tokens import router as tokens_router
+from .translations import router as translations_router
 
 router = APIRouter(prefix="/projects")
 
@@ -29,3 +30,4 @@ router.include_router(segments_router, prefix="/{project_id}")
 router.include_router(snapshots_router, prefix="/{project_id}")
 router.include_router(tasks_router, prefix="/{project_id}")
 router.include_router(tokens_router, prefix="/{project_id}")
+router.include_router(translations_router, prefix="/{project_id}")

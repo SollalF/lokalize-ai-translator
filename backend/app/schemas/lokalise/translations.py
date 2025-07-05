@@ -1,6 +1,13 @@
+from typing import Any
+
 from pydantic import BaseModel, Field
 
-from .translation_status import CustomTranslationStatus
+
+class CustomTranslationStatus(BaseModel):
+    """Custom translation status object within translation schema."""
+
+    status_id: int = Field(..., description="Custom translation status ID")
+    title: str = Field(..., description="Custom translation status title")
 
 
 class Translation(BaseModel):
@@ -21,7 +28,7 @@ class Translation(BaseModel):
     modified_by_email: str = Field(
         ..., description="E-mail of the user, who made last modification"
     )
-    translation: str | dict = Field(
+    translation: str | dict[str, Any] = Field(
         ...,
         description="The actual translation content. Pass as an object, in case it includes plural forms and is_plural is true",
     )
@@ -47,13 +54,36 @@ class Translation(BaseModel):
     )
 
 
-class TranslationResponse(BaseModel):
-    """Response schema for translation operations."""
-
-    translation: Translation
-
-
 class TranslationsResponse(BaseModel):
-    """Response schema for multiple translations."""
+    """Response schema for listing translations."""
 
-    translations: list[Translation]
+    project_id: str = Field(..., description="A unique project identifier")
+    translations: list[Translation] = Field(
+        ..., description="List of project translation items"
+    )
+
+
+class TranslationResponse(BaseModel):
+    """Response schema for retrieving a single translation."""
+
+    project_id: str = Field(..., description="A unique project identifier")
+    translation: Translation = Field(..., description="The translation object")
+
+
+class TranslationUpdateRequest(BaseModel):
+    """Request schema for updating a translation."""
+
+    translation: str | dict[str, Any] = Field(
+        ...,
+        description="The actual translation content. Use an JSON object for plural keys.",
+    )
+    is_unverified: bool | None = Field(
+        None, description="Whether the Unverified flag is enabled."
+    )
+    is_reviewed: bool | None = Field(
+        True, description="Whether the Reviewed flag is enabled."
+    )
+    custom_translation_status_ids: list[str] | None = Field(
+        None,
+        description="Custom translation status IDs to assign to translation (existing statuses will be replaced).",
+    )
