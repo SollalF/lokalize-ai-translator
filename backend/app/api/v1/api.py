@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.api.v1.endpoints import glossary_processor, lokalise, translation
+from app.api.v1.endpoints import lokalise
 
 api_router = APIRouter()
 
@@ -13,12 +13,12 @@ api_router = APIRouter()
 # Include Lokalise endpoints (mirroring Lokalise API structure)
 api_router.include_router(lokalise.router)
 
-# Include Translation endpoints
-api_router.include_router(
-    translation.router, prefix="/translation", tags=["translation"]
-)
+# # Include Translation endpoints
+# api_router.include_router(
+#     translation.router, prefix="/translation", tags=["translation"]
+# )
 
-# Include Glossary Processor endpoints
-api_router.include_router(
-    glossary_processor.router, prefix="/glossary", tags=["glossary-processor"]
-)
+# # Include Glossary Processor endpoints
+# api_router.include_router(
+#     glossary_processor.router, prefix="/glossary", tags=["glossary-processor"]
+# )
