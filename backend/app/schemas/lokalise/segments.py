@@ -49,3 +49,37 @@ class SegmentsResponse(BaseModel):
     """Response schema for multiple segments."""
 
     segments: list[Segment]
+
+
+class ProjectSegmentsResponse(BaseModel):
+    """Response schema for project segments."""
+
+    project_id: str = Field(..., description="A unique project identifier")
+    segments: list[Segment] = Field(..., description="List of segments")
+
+
+class ProjectSegmentResponse(BaseModel):
+    """Response schema for single project segment."""
+
+    project_id: str = Field(..., description="A unique project identifier")
+    segment: Segment = Field(..., description="Single segment")
+
+
+class SegmentUpdateRequest(BaseModel):
+    """Request schema for updating a segment."""
+
+    value: str | dict = Field(
+        ...,
+        description="The actual translation content. Use an JSON object for plural keys",
+    )
+    is_fuzzy: bool | None = Field(
+        None,
+        description="Whether the Fuzzy flag is enabled. (Note: Fuzzy is called Unverified in the editor now)",
+    )
+    is_reviewed: bool | None = Field(
+        None, description="Whether the Reviewed flag is enabled"
+    )
+    custom_translation_status_ids: list[str] | None = Field(
+        None,
+        description="Custom translation status IDs to assign to translation (existing statuses will be replaced)",
+    )

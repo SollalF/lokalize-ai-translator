@@ -96,6 +96,31 @@ from .queued_processes import (
     QueuedProcessResponse,
 )
 
+# Screenshots
+from .screenshots import (
+    KeyCoordinates,
+    ProjectScreenshotResponse,
+    ProjectScreenshotsResponse,
+    Screenshot,
+    ScreenshotCreate,
+    ScreenshotDeleteResponse,
+    ScreenshotKey,
+    ScreenshotResponse,
+    ScreenshotsCreateRequest,
+    ScreenshotsResponse,
+    ScreenshotUpdateRequest,
+)
+
+# Segments
+from .segments import (
+    ProjectSegmentResponse,
+    ProjectSegmentsResponse,
+    Segment,
+    SegmentResponse,
+    SegmentsResponse,
+    SegmentUpdateRequest,
+)
+
 # Tokens
 from .tokens import (
     ServiceTokenCreateRequest,
@@ -196,6 +221,25 @@ __all__ = [
     "QueuedProcess",
     "QueuedProcessesResponse",
     "QueuedProcessResponse",
+    # Screenshots
+    "KeyCoordinates",
+    "ProjectScreenshotResponse",
+    "ProjectScreenshotsResponse",
+    "Screenshot",
+    "ScreenshotCreate",
+    "ScreenshotDeleteResponse",
+    "ScreenshotKey",
+    "ScreenshotResponse",
+    "ScreenshotsCreateRequest",
+    "ScreenshotUpdateRequest",
+    "ScreenshotsResponse",
+    # Segments
+    "ProjectSegmentResponse",
+    "ProjectSegmentsResponse",
+    "Segment",
+    "SegmentResponse",
+    "SegmentsResponse",
+    "SegmentUpdateRequest",
     # Tokens
     "ServiceTokenCreateRequest",
     "ServiceTokenResponse",
