@@ -51,3 +51,68 @@ class ScreenshotsResponse(BaseModel):
     """Response schema for multiple screenshots."""
 
     screenshots: list[Screenshot]
+
+
+class ProjectScreenshotsResponse(BaseModel):
+    """Response schema for project screenshots."""
+
+    project_id: str = Field(..., description="A unique project identifier")
+    screenshots: list[Screenshot] = Field(..., description="List of screenshots")
+
+
+class ProjectScreenshotResponse(BaseModel):
+    """Response schema for single project screenshot."""
+
+    project_id: str = Field(..., description="A unique project identifier")
+    screenshot: Screenshot = Field(..., description="Single screenshot")
+
+
+class ScreenshotCreate(BaseModel):
+    """Screenshot creation object schema for Lokalise API."""
+
+    data: str = Field(
+        ...,
+        description="The screenshot, base64 encoded (with leading image type data:image/jpeg;base64,). Supported file formats are JPG and PNG",
+    )
+    title: str | None = Field(None, description="Set screenshot title (optional)")
+    description: str | None = Field(None, description="Set screenshot description")
+    ocr: bool | None = Field(
+        None,
+        description="Try to recognize translations on the image and attach screenshot to all possible keys",
+    )
+    key_ids: list[str] | None = Field(
+        None, description="Attach the screenshot to key IDs specified"
+    )
+    tags: list[str] | None = Field(
+        None, description="List of tags to add to the uploaded screenshot"
+    )
+
+
+class ScreenshotsCreateRequest(BaseModel):
+    """Request schema for creating screenshots."""
+
+    screenshots: list[ScreenshotCreate] = Field(
+        ..., description="List of the screenshot objects"
+    )
+
+
+class ScreenshotUpdateRequest(BaseModel):
+    """Request schema for updating a screenshot."""
+
+    title: str | None = Field(None, description="Set screenshot title (optional)")
+    description: str | None = Field(None, description="Set screenshot description")
+    key_ids: list[str] | None = Field(
+        None, description="Attach the screenshot to key IDs specified"
+    )
+    tags: list[str] | None = Field(
+        None, description="List of tags to add to the uploaded screenshot"
+    )
+
+
+class ScreenshotDeleteResponse(BaseModel):
+    """Response schema for screenshot deletion."""
+
+    project_id: str = Field(..., description="A unique project identifier")
+    screenshot_deleted: bool = Field(
+        ..., description="Whether the screenshot was successfully deleted"
+    )
