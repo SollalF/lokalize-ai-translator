@@ -17,13 +17,33 @@ class TeamUser(BaseModel):
     )
 
 
-class TeamUserResponse(BaseModel):
-    """Response schema for team user operations."""
-
-    team_user: TeamUser
-
-
 class TeamUsersResponse(BaseModel):
-    """Response schema for multiple team users."""
+    """Response schema for listing team users."""
 
-    team_users: list[TeamUser]
+    team_id: int = Field(..., description="A unique team identifier")
+    team_users: list[TeamUser] = Field(..., description="List of team users")
+
+
+class TeamUserResponse(BaseModel):
+    """Response schema for retrieving a single team user."""
+
+    team_id: int = Field(..., description="A unique team identifier")
+    team_user: TeamUser = Field(..., description="The team user object")
+
+
+class TeamUserUpdateRequest(BaseModel):
+    """Request schema for updating a team user."""
+
+    role: str = Field(
+        ...,
+        description="Role of the user. Available roles are owner, admin, member, biller",
+    )
+
+
+class TeamUserDeleteResponse(BaseModel):
+    """Response schema for team user deletion."""
+
+    team_id: int = Field(..., description="A unique team identifier")
+    team_user_deleted: bool = Field(
+        ..., description="Whether the team user was successfully deleted"
+    )
