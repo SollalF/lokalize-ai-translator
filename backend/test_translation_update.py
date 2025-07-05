@@ -6,7 +6,7 @@ This script shows how to use the new translation endpoints.
 
 import asyncio
 
-from app.schemas.lokalise import TranslationUpdate
+from app.schemas.lokalise.translations import TranslationUpdate
 from app.services.lokalise import lokalise_service
 
 
