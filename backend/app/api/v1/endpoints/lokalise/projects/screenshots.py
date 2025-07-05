@@ -4,7 +4,7 @@ from typing import Annotated
 
 from fastapi import APIRouter, HTTPException, Path, Query
 
-from app.schemas.lokalise import (
+from app.schemas.lokalise.screenshots import (
     ProjectScreenshotResponse,
     ProjectScreenshotsResponse,
     ScreenshotDeleteResponse,

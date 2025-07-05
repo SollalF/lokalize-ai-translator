@@ -4,7 +4,10 @@ from typing import Annotated
 
 from fastapi import APIRouter, HTTPException, Path, Query
 
-from app.schemas.lokalise import ProjectProcessesResponse, ProjectProcessResponse
+from app.schemas.lokalise.queued_processes import (
+    ProjectProcessesResponse,
+    ProjectProcessResponse,
+)
 
 router = APIRouter(tags=["lokalise-processes"])
 

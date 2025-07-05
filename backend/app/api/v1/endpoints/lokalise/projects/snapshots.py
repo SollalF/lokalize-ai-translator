@@ -4,8 +4,8 @@ Snapshots endpoints for Lokalise API.
 
 from fastapi import APIRouter, HTTPException, Path, Query, Response
 
-from app.schemas.lokalise import (
-    Project,
+from app.schemas.lokalise.projects import Project
+from app.schemas.lokalise.snapshots import (
     ProjectSnapshotResponse,
     ProjectSnapshotsResponse,
     SnapshotCreateRequest,

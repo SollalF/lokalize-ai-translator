@@ -4,7 +4,7 @@ Segments endpoints for Lokalise API.
 
 from fastapi import APIRouter, HTTPException, Path, Query
 
-from app.schemas.lokalise import (
+from app.schemas.lokalise.segments import (
     ProjectSegmentResponse,
     ProjectSegmentsResponse,
     SegmentUpdateRequest,

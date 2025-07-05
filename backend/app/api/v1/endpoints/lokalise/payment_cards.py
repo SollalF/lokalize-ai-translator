@@ -4,7 +4,7 @@ from typing import Annotated
 
 from fastapi import APIRouter, HTTPException, Path, Query
 
-from app.schemas.lokalise import (
+from app.schemas.lokalise.payment_cards import (
     PaymentCard,
     PaymentCardCreateRequest,
     PaymentCardDeleteResponse,
