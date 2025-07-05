@@ -11,7 +11,7 @@ api_router = APIRouter()
 # api_router.include_router(users.router, prefix="/users", tags=["users"])
 
 # Include Lokalise endpoints (mirroring Lokalise API structure)
-api_router.include_router(lokalise.router, tags=["lokalise"])
+api_router.include_router(lokalise.router)
 
 # Include Translation endpoints
 api_router.include_router(

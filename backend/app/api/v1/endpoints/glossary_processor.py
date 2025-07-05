@@ -1,3 +1,7 @@
+# Save uploaded file temporarily
+import os
+import tempfile
+
 from fastapi import APIRouter, File, HTTPException, Query, UploadFile
 
 from app.schemas.glossary_processor import (
@@ -13,12 +17,17 @@ from app.services.glossary_processor import glossary_processor
 
 router = APIRouter()
 
+# Module-level variables for FastAPI parameter defaults
+REQUIRED_FILE = File(...)
+REQUIRED_PROJECT_ID = Query(..., description="Lokalise project ID")
+SOURCE_LANGUAGE = Query("en", description="Source language for terms")
+
 
 @router.post("/load", response_model=GlossaryLoadResponse)
 async def load_glossary_file(
-    file: UploadFile = File(...),
-    project_id: str = Query(..., description="Lokalise project ID"),
-    source_language: str = Query("en", description="Source language for terms"),
+    file: UploadFile = REQUIRED_FILE,
+    project_id: str = REQUIRED_PROJECT_ID,
+    source_language: str = SOURCE_LANGUAGE,
 ):
     """
     Load glossary from an uploaded XLSX file and upload to Lokalise.
@@ -38,10 +47,6 @@ async def load_glossary_file(
         )
 
     try:
-        # Save uploaded file temporarily
-        import os
-        import tempfile
-
         with tempfile.NamedTemporaryFile(delete=False, suffix=".xlsx") as temp_file:
             content = await file.read()
             temp_file.write(content)
@@ -71,7 +76,7 @@ async def load_glossary_file(
     except Exception as e:
         raise HTTPException(
             status_code=500, detail=f"Failed to process glossary file: {e!s}"
-        )
+        ) from e
 
 
 @router.post("/find-terms", response_model=list[FoundTerm])
@@ -97,7 +102,7 @@ async def find_terms(
     except Exception as e:
         raise HTTPException(
             status_code=500, detail=f"Failed to find terms in text: {e!s}"
-        )
+        ) from e
 
 
 @router.post("/replace-terms", response_model=TextProcessingResponse)
@@ -140,7 +145,7 @@ async def replace_terms(
     except Exception as e:
         raise HTTPException(
             status_code=500, detail=f"Failed to replace terms in text: {e!s}"
-        )
+        ) from e
 
 
 @router.post("/wrap-terms", response_model=TextProcessingResponse)
@@ -178,7 +183,7 @@ async def wrap_terms(
     except Exception as e:
         raise HTTPException(
             status_code=500, detail=f"Failed to wrap terms in text: {e!s}"
-        )
+        ) from e
 
 
 @router.post("/lookup-term", response_model=TermLookupResponse)
@@ -224,7 +229,9 @@ async def lookup_term(
             tags=term_info.get("tags"),
         )
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to lookup term: {e!s}")
+        raise HTTPException(
+            status_code=500, detail=f"Failed to lookup term: {e!s}"
+        ) from e
 
 
 @router.get("/languages", response_model=list[str])
@@ -246,7 +253,7 @@ async def get_available_languages(
     except Exception as e:
         raise HTTPException(
             status_code=500, detail=f"Failed to get available languages: {e!s}"
-        )
+        ) from e
 
 
 @router.get("/stats", response_model=GlossaryStats)
@@ -268,4 +275,4 @@ async def get_glossary_stats(
     except Exception as e:
         raise HTTPException(
             status_code=500, detail=f"Failed to get glossary stats: {e!s}"
-        )
+        ) from e

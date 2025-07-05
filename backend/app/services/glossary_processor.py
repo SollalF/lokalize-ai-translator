@@ -220,7 +220,7 @@ class GlossaryProcessor:
                     logger.error(f"Error uploading batch {i // batch_size + 1}: {e}")
                     raise HTTPException(
                         status_code=500, detail=f"Failed to upload glossary terms: {e}"
-                    )
+                    ) from e
 
             logger.info(
                 f"Successfully uploaded {uploaded_count} terms with translations to Lokalise project {project_id}"
@@ -233,7 +233,7 @@ class GlossaryProcessor:
                 raise
             raise HTTPException(
                 status_code=500, detail=f"Failed to process glossary file: {e!s}"
-            )
+            ) from e
 
     async def find_terms_in_text(
         self, text: str, project_id: str

@@ -88,7 +88,7 @@ async def translate_batch(request: BatchTranslationRequest):
             raise HTTPException(
                 status_code=500,
                 detail=f"Failed to translate text: {text[:50]}... Error: {e!s}",
-            )
+            ) from e
 
     return BatchTranslationResponse(translations=translations)
 
@@ -150,7 +150,7 @@ async def translate_with_glossary(request: GlossaryTranslationRequest):
         raise HTTPException(
             status_code=500,
             detail=f"Failed to translate with glossary: {e!s}",
-        )
+        ) from e
 
 
 @router.post(
@@ -198,7 +198,7 @@ async def translate_batch_with_glossary(request: GlossaryBatchTranslationRequest
             raise HTTPException(
                 status_code=500,
                 detail=f"Failed to translate text with glossary: {text[:50]}... Error: {e!s}",
-            )
+            ) from e
 
     return GlossaryBatchTranslationResponse(translations=translations)
 
@@ -258,4 +258,4 @@ async def evaluate_translation(request: TranslationEvaluationRequest):
         raise HTTPException(
             status_code=500,
             detail=f"Failed to evaluate translation: {e!s}",
-        )
+        ) from e
