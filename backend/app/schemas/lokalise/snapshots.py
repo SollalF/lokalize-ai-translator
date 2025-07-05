@@ -28,3 +28,32 @@ class SnapshotsResponse(BaseModel):
     """Response schema for multiple snapshots."""
 
     snapshots: list[Snapshot]
+
+
+class ProjectSnapshotsResponse(BaseModel):
+    """Response schema for project snapshots."""
+
+    project_id: str = Field(..., description="A unique project identifier")
+    snapshots: list[Snapshot] = Field(..., description="List of project snapshots")
+
+
+class SnapshotCreateRequest(BaseModel):
+    """Request schema for creating a snapshot."""
+
+    title: str = Field(..., description="Set snapshot title")
+
+
+class ProjectSnapshotResponse(BaseModel):
+    """Response schema for single project snapshot."""
+
+    project_id: str = Field(..., description="A unique project identifier")
+    snapshot: Snapshot = Field(..., description="Single snapshot object")
+
+
+class SnapshotDeleteResponse(BaseModel):
+    """Response schema for snapshot deletion."""
+
+    project_id: str = Field(..., description="A unique project identifier")
+    snapshot_deleted: bool = Field(
+        ..., description="Whether the snapshot was successfully deleted"
+    )

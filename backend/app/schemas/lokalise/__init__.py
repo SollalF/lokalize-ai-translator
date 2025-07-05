@@ -121,6 +121,17 @@ from .segments import (
     SegmentUpdateRequest,
 )
 
+# Snapshots
+from .snapshots import (
+    ProjectSnapshotResponse,
+    ProjectSnapshotsResponse,
+    Snapshot,
+    SnapshotCreateRequest,
+    SnapshotDeleteResponse,
+    SnapshotResponse,
+    SnapshotsResponse,
+)
+
 # Tokens
 from .tokens import (
     ServiceTokenCreateRequest,
@@ -249,4 +260,12 @@ __all__ = [
     "TranslationUpdate",
     "TranslationCreate",
     "TranslationFilters",
+    # Snapshots
+    "Snapshot",
+    "SnapshotResponse",
+    "SnapshotsResponse",
+    "ProjectSnapshotsResponse",
+    "SnapshotCreateRequest",
+    "ProjectSnapshotResponse",
+    "SnapshotDeleteResponse",
 ]
