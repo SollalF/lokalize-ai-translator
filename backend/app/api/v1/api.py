@@ -1,24 +1,20 @@
 from fastapi import APIRouter
 
-from app.api.v1.endpoints import lokalise
+from app.api.v1.endpoints.glossary_processor import router as glossary_processor_router
+from app.api.v1.endpoints.lokalise import router as lokalise_router
+from app.api.v1.endpoints.translation import router as translation_router
 
 api_router = APIRouter()
 
-# Import and include other routers here
-# Example:
-# from .endpoints import items, users
-# api_router.include_router(items.router, prefix="/items", tags=["items"])
-# api_router.include_router(users.router, prefix="/users", tags=["users"])
-
 # Include Lokalise endpoints (mirroring Lokalise API structure)
-api_router.include_router(lokalise.router)
+api_router.include_router(lokalise_router, prefix="/lokalise", tags=["lokalise"])
 
-# # Include Translation endpoints
-# api_router.include_router(
-#     translation.router, prefix="/translation", tags=["translation"]
-# )
+# Include Translation endpoints
+api_router.include_router(
+    translation_router, prefix="/translation", tags=["translation"]
+)
 
-# # Include Glossary Processor endpoints
-# api_router.include_router(
-#     glossary_processor.router, prefix="/glossary", tags=["glossary-processor"]
-# )
+# Include Glossary Processor endpoints
+api_router.include_router(
+    glossary_processor_router, prefix="/glossary", tags=["glossary-processor"]
+)
