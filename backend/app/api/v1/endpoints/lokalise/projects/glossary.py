@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Path, Query
+from fastapi import APIRouter, Path, Query
 
 from app.schemas.lokalise.glossary import (
     GlossaryTermResponse,
@@ -10,6 +10,7 @@ from app.schemas.lokalise.glossary import (
     GlossaryTermsUpdate,
     GlossaryTermsUpdateResponse,
 )
+from app.services.lokalise.glossary import lokalise_glossary_service
 
 router = APIRouter(tags=["lokalise-glossary"])
 
@@ -34,7 +35,9 @@ async def list_glossary_terms(
 
     Requires read_glossary OAuth access scope.
     """
-    raise HTTPException(status_code=501, detail="Not implemented")
+    return await lokalise_glossary_service.get_glossary_terms(
+        project_id=project_id, limit=limit, cursor=cursor
+    )
 
 
 @router.get("/glossary-terms/{term_id}", response_model=GlossaryTermResponse)
@@ -52,7 +55,10 @@ async def get_glossary_term(
 
     Requires read_glossary OAuth access scope.
     """
-    raise HTTPException(status_code=501, detail="Not implemented")
+    term = await lokalise_glossary_service.get_glossary_term(
+        project_id=project_id, term_id=term_id
+    )
+    return GlossaryTermResponse(data=term)
 
 
 @router.post(
@@ -73,7 +79,9 @@ async def create_glossary_terms(
 
     Requires write_glossary OAuth access scope.
     """
-    raise HTTPException(status_code=501, detail="Not implemented")
+    return await lokalise_glossary_service.create_glossary_terms(
+        project_id=project_id, request=request
+    )
 
 
 @router.put(
@@ -94,7 +102,9 @@ async def update_glossary_terms(
 
     Requires write_glossary OAuth access scope.
     """
-    raise HTTPException(status_code=501, detail="Not implemented")
+    return await lokalise_glossary_service.update_glossary_terms(
+        project_id=project_id, request=request
+    )
 
 
 @router.delete(
@@ -115,4 +125,6 @@ async def delete_glossary_terms(
 
     Requires write_glossary OAuth access scope.
     """
-    raise HTTPException(status_code=501, detail="Not implemented")
+    return await lokalise_glossary_service.delete_glossary_terms(
+        project_id=project_id, request=request
+    )
