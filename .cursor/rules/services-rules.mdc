@@ -1,0 +1,326 @@
+# Lokalise API Service Implementation Guide
+
+## 📋 **Quick Reference for Implementing New Lokalise Services**
+
+### **1. Service Structure (Direct HTTP API Pattern)**
+
+```python
+# backend/app/services/lokalise/{endpoint}.py
+from typing import Any, Dict, Optional
+from app.schemas.lokalise.{endpoint} import *
+from .base import LokaliseBaseService
+
+class Lokalise{Endpoint}Service(LokaliseBaseService):
+    """Service for managing Lokalise {endpoint} via direct API calls."""
+
+    async def list_{items}(
+        self,
+        project_id: str,
+        param1: Optional[str] = None,
+        param2: Optional[int] = None,
+        limit: Optional[int] = None,
+        page: Optional[int] = None,
+    ) -> {Items}Response:
+        """List {items} for a project."""
+        # Build query parameters
+        params = {
+            k: v for k, v in {
+                "param1": param1,
+                "param2": param2,
+                "limit": limit,
+                "page": page,
+            }.items() if v is not None
+        }
+
+        logger.info(f"Fetching {items} for project {project_id} with params: {params}")
+
+        # Make direct API call
+        data = await self._make_request("GET", f"/projects/{project_id}/{items}", params=params)
+
+        # Convert response directly to Pydantic model
+        response = {Items}Response.model_validate(data)
+
+        logger.info(f"Retrieved {len(response.{items})} {items} from Lokalise")
+        return response
+
+    async def get_{item}(self, project_id: str, {item}_id: str) -> {Item}Response:
+        """Get a single {item}."""
+        logger.info(f"Fetching {item} {item_id} for project {project_id}")
+
+        data = await self._make_request("GET", f"/projects/{project_id}/{items}/{{item}_id}")
+        response = {Item}Response.model_validate(data)
+
+        logger.info(f"Retrieved {item}: {response.{item}.name}")
+        return response
+
+# Singleton
+lokalise_{endpoint}_service = Lokalise{Endpoint}Service()
+```
+
+### **2. Updated Schema Pattern (Direct API Response)**
+
+```python
+# backend/app/schemas/lokalise/{endpoint}.py
+from pydantic import BaseModel, Field
+
+class {Item}(BaseModel):
+    """Schema matching actual Lokalise API response structure."""
+
+    # Use actual API field names and make optional fields optional
+    {item}_id: str = Field(..., description="Unique identifier")
+    name: str = Field("", description="Name")
+    created_at: str | None = Field(None, description="Creation date")
+    # Add defaults for fields that might not always be present
+    optional_field: int = Field(0, description="Optional field with default")
+
+class {Items}Response(BaseModel):
+    """Response schema for multiple {items}."""
+    {items}: list[{Item}] = Field(default_factory=list)
+
+class {Item}Response(BaseModel):
+    """Response schema for single {item}."""
+    {item}: {Item}
+```
+
+### **3. API Parity Testing (Required for All New Services)**
+
+Create tests in the organized structure:
+
+```python
+# tests/api/test_lokalise/test_{endpoint}.py
+import pytest
+from ...utils.test_parity import manual_comparison, tester
+
+class Test{Endpoint}API:
+    """Test suite for {endpoint} API endpoints."""
+
+    @pytest.mark.asyncio
+    @pytest.mark.lokalise
+    async def test_{endpoint}_list(self):
+        """Test {endpoint} list endpoint matches Lokalise API exactly."""
+        # Get a real project ID first
+        projects_data = await tester.call_lokalise_api("projects", {"limit": 1})
+
+        if not projects_data.get("projects"):
+            pytest.skip("No projects available for testing")
+
+        project_id = projects_data["projects"][0]["project_id"]
+
+        result = await manual_comparison(
+            lokalise_endpoint=f"projects/{project_id}/{endpoint}",
+            our_endpoint=f"api/v1/lokalise/{project_id}/{endpoint}",
+            params={"limit": 5}
+        )
+
+        assert result['matches'], f"{endpoint} list endpoint mismatch: {result['differences']}"
+
+    @pytest.mark.asyncio
+    @pytest.mark.lokalise
+    @pytest.mark.parametrize("params", [
+        {"limit": 10},
+        {"limit": 5, "page": 1},
+        # Add other parameter combinations
+    ])
+    async def test_{endpoint}_list_parameter_variations(self, params):
+        """Test {endpoint} list with various parameter combinations."""
+        projects_data = await tester.call_lokalise_api("projects", {"limit": 1})
+
+        if not projects_data.get("projects"):
+            pytest.skip("No projects available for testing")
+
+        project_id = projects_data["projects"][0]["project_id"]
+
+        result = await manual_comparison(
+            lokalise_endpoint=f"projects/{project_id}/{endpoint}",
+            our_endpoint=f"api/v1/lokalise/{project_id}/{endpoint}",
+            params=params
+        )
+
+        assert result['matches'], f"{endpoint} with params {params} mismatch: {result['differences']}"
+```
+
+### **4. Service Development Workflow**
+
+#### Step 1: Analyze Actual API Response
+
+```bash
+# Test the real Lokalise API first to understand response structure
+curl -H "X-Api-Token: YOUR_TOKEN" \
+     "https://api.lokalise.com/api2/projects/PROJECT_ID/{endpoint}?limit=1" | jq .
+```
+
+#### Step 2: Create Schemas Based on Real Response
+
+- Match field names exactly as they appear in API
+- Make optional fields truly optional with defaults
+- Handle nested objects properly
+
+#### Step 3: Implement Service Using Direct HTTP
+
+- Use `self._make_request()` from base service
+- Let Pydantic handle validation directly from JSON
+- Minimize manual data transformation
+
+#### Step 4: Create API Parity Tests
+
+```bash
+# Create test file in organized structure
+touch tests/api/test_lokalise/test_{endpoint}.py
+
+# Run tests to verify exact API match
+pytest tests/api/test_lokalise/test_{endpoint}.py -v
+```
+
+#### Step 5: Iterate Until Perfect Match
+
+```bash
+# Keep running until you see:
+# 🎉 Perfect match! Your endpoint returns identical data to Lokalise API.
+```
+
+### **5. Endpoint Integration Pattern**
+
+```python
+# In app/api/v1/endpoints/lokalise/{endpoint}/__init__.py
+from app.services.lokalise.{endpoint} import lokalise_{endpoint}_service
+
+@router.get("/")
+async def list_{items}(
+    param1: Annotated[str | None, Query(description="Filter parameter")] = None,
+    limit: Annotated[int | None, Query(description="Items per page", ge=1, le=5000)] = None,
+    page: Annotated[int | None, Query(description="Page number", ge=1)] = None,
+) -> {Items}Response:
+    """
+    List {items} for the project.
+
+    This endpoint mirrors the Lokalise API endpoint:
+    GET https://api.lokalise.com/api2/projects/{{project_id}}/{endpoint}
+    """
+    return await lokalise_{endpoint}_service.list_{items}(
+        project_id=project_id,
+        param1=param1,
+        limit=limit,
+        page=page,
+    )
+```
+
+### **6. Testing Commands**
+
+```bash
+# Run all Lokalise API parity tests
+pytest tests/api/test_lokalise/ -v
+
+# Run specific endpoint tests
+pytest tests/api/test_lokalise/test_{endpoint}.py -v
+
+# Run only Lokalise API tests (using markers)
+pytest -m "lokalise" -v
+
+# Run with detailed output on failures
+pytest tests/api/test_lokalise/test_{endpoint}.py -v --tb=long
+
+# Test specific method
+pytest tests/api/test_lokalise/test_{endpoint}.py::Test{Endpoint}API::test_{endpoint}_list -v
+```
+
+### **7. Key Differences from Old SDK Pattern**
+
+**❌ Old (SDK-based):**
+
+```python
+# Complex manual mapping
+response = self.client.api_method(params)
+items = []
+for item in getattr(response, "items", []):
+    converted = ItemSchema.model_validate(item, from_attributes=True)
+    items.append(converted)
+```
+
+**✅ New (Direct HTTP):**
+
+```python
+# Simple and clean
+data = await self._make_request("GET", f"/projects/{project_id}/{endpoint}", params=params)
+response = ItemsResponse.model_validate(data)
+```
+
+### **8. Schema Best Practices for API Parity**
+
+```python
+# Make fields optional when API doesn't always include them
+class Project(BaseModel):
+    project_id: str = Field(..., description="Required field")
+    name: str = Field(..., description="Required field")
+    settings: ProjectSettings | None = Field(None, description="Optional nested object")
+    languages: list[ProjectLanguage] = Field(default_factory=list, description="May be empty")
+
+    # Add defaults for fields that might be missing
+    created_at: str | None = Field(None, description="May not be present")
+    team_uuid: str | None = Field(None, description="May not be present")
+```
+
+### **9. Error Handling**
+
+```python
+# The base service _make_request() handles all HTTP errors
+# Just focus on your business logic
+async def list_items(self, project_id: str) -> ItemsResponse:
+    try:
+        data = await self._make_request("GET", f"/projects/{project_id}/items")
+        return ItemsResponse.model_validate(data)
+    except HTTPException:
+        # HTTP errors are already handled by base service
+        raise
+    except Exception as e:
+        # Handle any Pydantic validation errors
+        logger.error(f"Failed to parse items response: {e}")
+        raise HTTPException(status_code=500, detail="Failed to process API response")
+```
+
+### **10. Success Criteria**
+
+Your service is ready when:
+
+✅ **API Parity Test Passes:**
+
+```
+🎉 Perfect match! Your endpoint returns identical data to Lokalise API.
+```
+
+✅ **Multiple Parameter Tests Pass:**
+
+- Different limits, pages, filters
+- Edge cases (empty results, maximum limits)
+
+✅ **Type Safety:**
+
+- No pyright errors
+- Proper type annotations throughout
+
+✅ **Error Handling:**
+
+- Proper HTTP status codes
+- Meaningful error messages
+
+### **11. File Organization**
+
+```
+backend/
+├── app/
+│   ├── api/v1/endpoints/lokalise/{endpoint}/
+│   ├── schemas/lokalise/{endpoint}.py
+│   └── services/lokalise/{endpoint}.py
+└── tests/
+    └── api/test_lokalise/test_{endpoint}.py
+```
+
+### **12. Documentation Requirements**
+
+- Endpoint docstrings reference corresponding Lokalise API URLs
+- Parameter descriptions match Lokalise API documentation
+- Response schemas documented with field descriptions
+- Test files include comprehensive parameter testing
+
+**🎯 Goal: Build services that return identical data to Lokalise API with 100% confidence!**
+
+**Follow this pattern for clean, type-safe Lokalise services! 🚀**
