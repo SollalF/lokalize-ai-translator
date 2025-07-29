@@ -1,0 +1,3 @@
+"""
+Translation API endpoint tests.
+"""
