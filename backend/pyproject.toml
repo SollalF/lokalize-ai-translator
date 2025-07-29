@@ -15,7 +15,6 @@ dependencies = [
     "pydantic-settings>=2.2.1",
     "python-dotenv>=1.0.1",
     "httpx>=0.27.0",
-    "python-lokalise-api>=2.0.0",
     "google-generativeai>=0.8.0",
     "tenacity>=8.2.0",
     "pandas>=2.0.0",
@@ -93,16 +92,18 @@ python_version = "3.13"
 strict = true
 
 [tool.basedpyright]
-venvPath = "."
-venv = ".venv"
+venvPath = "./backend"
+venv = "./backend/.venv"
 typeCheckingMode = "basic"
 useLibraryCodeForTypes = true
-pythonPath = ".venv/bin/python"
-extraPaths = [".venv/lib/python3.13/site-packages"]
+pythonPath = "./backend/.venv/bin/python"
+extraPaths = ["./backend/.venv/lib/python3.13/site-packages"]
 
 [dependency-groups]
 dev = [
     "basedpyright>=1.29.4",
+    "pytest>=8.4.0",
+    "pytest-asyncio>=1.1.0",
 ]
 
 [tool.setuptools.packages.find]

@@ -2,49 +2,48 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
-from .languages import BaseLanguage
-
 
 class ProjectSettings(BaseModel):
     """Project settings object within project schema."""
 
     per_platform_key_names: bool = Field(
-        ...,
+        False,
         description="If enabled project has different key names for different platforms",
     )
     reviewing: bool = Field(
-        ..., description="If enabled contributors has reviewer access for project"
+        False, description="If enabled contributors has reviewer access for project"
     )
     auto_toggle_unverified: bool = Field(
-        ...,
+        False,
         description="If enabled Lokalise will automatically mark translations Unverified in case translation of base language was changed",
     )
     offline_translation: bool = Field(
-        ...,
+        False,
         description="If enabled translators are able to download and upload translations as XLIFF files from the Editor",
     )
     key_editing: bool = Field(
-        ..., description="If enabled keys are allowed to be modified"
+        True, description="If enabled keys are allowed to be modified"
     )
     inline_machine_translations: bool = Field(
-        ...,
+        False,
         description="If enabled inline machine translations are enabled to all project users",
     )
     branching: bool = Field(
-        ..., description="If enabled then branching will be available"
+        False, description="If enabled then branching will be available"
     )
     segmentation: bool = Field(
-        ..., description="If enabled then segmentation will be available"
+        False, description="If enabled then segmentation will be available"
     )
     custom_translation_statuses: bool = Field(
-        ..., description="If enabled then custom translation statuses will be available"
+        False,
+        description="If enabled then custom translation statuses will be available",
     )
     custom_translation_statuses_allow_multiple: bool = Field(
-        ...,
+        False,
         description="If enabled then multiple custom translation statuses will be allowed",
     )
     contributor_preview_download_enabled: bool = Field(
-        ...,
+        False,
         description="If enabled then translators will be allowed to preview content by downloading target files from the Editor",
     )
 
@@ -52,57 +51,77 @@ class ProjectSettings(BaseModel):
 class QAIssues(BaseModel):
     """QA issues object within project statistics."""
 
-    not_reviewed: int = Field(..., description="Count of not reviewed translations")
-    unverified: int = Field(..., description="Count of unverified translations")
+    not_reviewed: int = Field(0, description="Count of not reviewed translations")
+    unverified: int = Field(0, description="Count of unverified translations")
     spelling_grammar: int = Field(
-        ..., description="Count of translations with spelling and/or grammar errors"
+        0, description="Count of translations with spelling and/or grammar errors"
     )
     inconsistent_placeholders: int = Field(
-        ...,
+        0,
         description="Count of translations with inconsistent placeholders (source vs target)",
     )
     inconsistent_html: int = Field(
-        ...,
+        0,
         description="Count of translations with inconsistent HTML tags (source vs target)",
     )
     different_number_of_urls: int = Field(
-        ...,
+        0,
         description="Count of translations with different number of URLs (source vs target)",
     )
     different_urls: int = Field(
-        ..., description="Count of translations with different URLs (source vs target)"
+        0, description="Count of translations with different URLs (source vs target)"
     )
     leading_whitespace: int = Field(
-        ..., description="Count of translations with leading whitespace"
+        0, description="Count of translations with leading whitespace"
     )
     trailing_whitespace: int = Field(
-        ..., description="Count of translations with trailing whitespace"
+        0, description="Count of translations with trailing whitespace"
     )
     different_number_of_email_address: int = Field(
-        ...,
+        0,
         description="Count of translations with different number of email address (source vs target)",
     )
     different_email_address: int = Field(
-        ...,
+        0,
         description="Count of translations with different email address (source vs target)",
     )
     different_brackets: int = Field(
-        ...,
+        0,
         description="Count of translations with different brackets (source vs target)",
     )
     different_numbers: int = Field(
-        ...,
+        0,
         description="Count of translations with different numbers (source vs target)",
     )
     double_space: int = Field(
-        ..., description="Count of translations with double spaces (target)"
+        0, description="Count of translations with double spaces (target)"
     )
     special_placeholder: int = Field(
-        ...,
+        0,
         description="Count of invalid use of [VOID], [TRUE], [FALSE] placeholders (target)",
     )
     unbalanced_brackets: int = Field(
-        ..., description="Count of unbalanced brackets (target)"
+        0, description="Count of unbalanced brackets (target)"
+    )
+
+
+class ProjectLanguage(BaseModel):
+    """Project language object with progress information from statistics."""
+
+    language_id: int = Field(
+        ..., description="A unique language identifier in the system"
+    )
+    project_language_id: int = Field(
+        ..., description="A unique project language identifier"
+    )
+    project_language_uuid: str = Field(
+        ..., description="A unique project language UUID"
+    )
+    language_iso: str = Field(..., description="Language/locale code")
+    progress: float = Field(0.0, description="Translated keys percent")
+    words_to_do: int = Field(
+        0,
+        description="Count of words remaining to translate from projects base language",
     )
 
 
@@ -110,37 +129,23 @@ class ProjectStatistics(BaseModel):
     """Project statistics object within project schema."""
 
     progress_total: float = Field(
-        ..., description="Overall percent of project progress"
+        0.0, description="Overall percent of project progress"
     )
-    keys_total: int = Field(..., description="Count of keys in the project")
-    team: int = Field(..., description="Team members count in the project")
+    keys_total: int = Field(0, description="Count of keys in the project")
+    team: int = Field(0, description="Team members count in the project")
     base_words: int = Field(
-        ..., description="Count of words in a base language of the project"
+        0, description="Count of words in a base language of the project"
     )
     qa_issues_total: int = Field(
-        ..., description="Overall count of QA issues in the project"
+        0, description="Overall count of QA issues in the project"
     )
-    qa_issues: QAIssues = Field(
-        ..., description="An object containing count for each QA issue type"
+    qa_issues: QAIssues | None = Field(
+        None, description="An object containing count for each QA issue type"
     )
-
-
-class ProjectLanguage(BaseLanguage):
-    """Project language object with progress information."""
-
-    language_id: int = Field(
-        ..., alias="lang_id", description="A unique language identifier in the system"
+    languages: list[ProjectLanguage] = Field(
+        default_factory=list,
+        description="List of project languages with progress information",
     )
-    language_iso: str = Field(..., alias="lang_iso", description="Language/locale code")
-
-    progress: float = Field(..., description="Translated keys percent")
-    words_to_do: int = Field(
-        ...,
-        description="Count of words remaining to translate from projects base language",
-    )
-
-    class Config:
-        populate_by_name = True
 
 
 class Project(BaseModel):
@@ -166,21 +171,28 @@ class Project(BaseModel):
     team_id: int = Field(
         ..., description="A unique identifier of the team, the project belongs to"
     )
+    team_uuid: str | None = Field(
+        None, description="A unique UUID of the team, the project belongs to"
+    )
+    base_project_language_id: int | None = Field(
+        None, description="A unique identifier of the project base language"
+    )
+    base_project_language_uuid: str | None = Field(
+        None, description="A unique UUID of the project base language"
+    )
     base_language_id: int = Field(
         ..., description="A unique identifier of the project default language"
     )
     base_language_iso: str = Field(
         ..., description="A language/locale code of the project default language"
     )
-    settings: ProjectSettings = Field(
-        ..., description="An object containing project settings"
+    uuid: str | None = Field(None, description="A unique UUID of the project")
+    settings: ProjectSettings | None = Field(
+        None, description="An object containing project settings"
     )
-    statistics: ProjectStatistics = Field(
-        ...,
+    statistics: ProjectStatistics | None = Field(
+        None,
         description="An object containing project statistics, QA issues and project languages progress",
-    )
-    languages: list[ProjectLanguage] = Field(
-        ..., description="An array of project languages with progress percent"
     )
 
 

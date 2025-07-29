@@ -4,9 +4,9 @@ from pydantic import BaseModel, Field
 class BaseLanguage(BaseModel):
     """Base language model with common fields."""
 
-    lang_id: int = Field(..., description="A unique language identifier in the system")
-    lang_iso: str = Field(..., description="Language/locale code")
-    lang_name: str = Field(..., description="Language name")
+    lang_id: int = Field(0, description="A unique language identifier in the system")
+    lang_iso: str = Field("", description="Language/locale code")
+    lang_name: str = Field("", description="Language name")
 
 
 class Language(BaseLanguage):
