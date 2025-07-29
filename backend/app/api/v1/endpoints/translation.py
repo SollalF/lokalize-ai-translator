@@ -19,8 +19,8 @@ from app.schemas.translation_evaluation import (
     TranslationEvaluationRequest,
     TranslationEvaluationResponse,
 )
-from app.services import glossary_aware_translation_service
 from app.services.gemini_service import gemini_service
+from app.services.glossary_aware_translation import glossary_aware_translation_service
 from app.services.translation_evaluation_service import translation_evaluation_service
 
 router = APIRouter()

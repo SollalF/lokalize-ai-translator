@@ -41,7 +41,7 @@ A modern web application for managing Lokalise translation projects with AI-powe
    # Edit .env with your API keys (Lokalise, Google Gemini, etc.)
 
    # Start backend server
-   uv python main.py
+   uv run python main.py
    ```
 
 3. **Frontend setup**:

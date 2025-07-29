@@ -377,11 +377,9 @@ The backend uses a modular service architecture:
 #### New Modular Approach (Recommended)
 
 ```python
-from app.services.lokalise import (
-    lokalise_keys_service,
-    lokalise_translations_service,
-    lokalise_glossary_service
-)
+from app.services.lokalise.keys import lokalise_keys_service,
+from app.services.lokalise.translations import lokalise_translations_service,
+from app.services.lokalise.glossary import lokalise_glossary_service
 
 # Use specific services
 keys = await lokalise_keys_service.get_keys(project_id)

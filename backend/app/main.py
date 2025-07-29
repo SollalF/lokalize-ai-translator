@@ -10,7 +10,7 @@ from app.api.v1.api import api_router
 from app.core.config import get_settings, validate_api_keys
 
 # Load environment variables
-load_dotenv()
+_ = load_dotenv()
 
 # Get settings
 settings = get_settings()

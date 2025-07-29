@@ -11,7 +11,7 @@ from app.schemas.lokalise.glossary import (
     GlossaryTermsCreate,
     GlossaryTermTranslation,
 )
-from app.services.lokalise import lokalise_glossary_service
+from app.services.lokalise.glossary import lokalise_glossary_service
 
 
 class GlossaryProcessor:
