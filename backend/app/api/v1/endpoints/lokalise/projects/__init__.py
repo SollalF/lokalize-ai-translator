@@ -28,7 +28,7 @@ from .tokens import router as tokens_router
 from .translations import router as translations_router
 from .webhooks import router as webhooks_router
 
-router = APIRouter(prefix="/projects")
+router = APIRouter(prefix="/projects", tags=["lokalise-projects"])
 
 router.include_router(comments_router, prefix="/{project_id}")
 router.include_router(contributors_router, prefix="/{project_id}")
@@ -44,9 +44,6 @@ router.include_router(tasks_router, prefix="/{project_id}")
 router.include_router(tokens_router, prefix="/{project_id}")
 router.include_router(translations_router, prefix="/{project_id}")
 router.include_router(webhooks_router, prefix="/{project_id}")
-
-
-router = APIRouter(tags=["lokalise-projects"])
 
 
 @router.get("/", response_model=ProjectsResponse)
@@ -131,7 +128,6 @@ async def get_project(
     Returns:
         ProjectResponse: Complete project object with settings, statistics, and languages
     """
-    from app.services.lokalise.projects import lokalise_projects_service
 
     return await lokalise_projects_service.get_project(project_id)
 

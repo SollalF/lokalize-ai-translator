@@ -26,6 +26,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "pytest>=8.0.0",
+    "pytest-dotenv>=0.5.2",
     "black>=24.2.0",
     "ruff>=0.3.0",
     "mypy>=1.8.0",
@@ -92,12 +93,20 @@ python_version = "3.13"
 strict = true
 
 [tool.basedpyright]
-venvPath = "./backend"
-venv = "./backend/.venv"
+venvPath = "."
+venv = "./.venv"
 typeCheckingMode = "basic"
 useLibraryCodeForTypes = true
-pythonPath = "./backend/.venv/bin/python"
-extraPaths = ["./backend/.venv/lib/python3.13/site-packages"]
+pythonPath = "./.venv/bin/python"
+extraPaths = ["./.venv/lib/python3.13/site-packages"]
+
+[tool.pytest.ini_options]
+env_files = [".env"]
+addopts = "-v -s"
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
 
 [dependency-groups]
 dev = [

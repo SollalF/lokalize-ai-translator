@@ -5,10 +5,19 @@ This ensures our endpoints return exactly the same data as Lokalise.
 
 import asyncio
 import json
+import os
 from typing import Any
 from urllib.parse import urlencode
 
 import httpx
+
+# Try to load .env file if not already loaded
+try:
+    from dotenv import load_dotenv
+
+    load_dotenv()
+except ImportError:
+    pass
 
 # Try to import the app, but handle missing environment gracefully
 try:
@@ -25,16 +34,24 @@ try:
 
     # Check if we have the required token
     if not settings.LOKALISE_API_TOKEN:
-        raise ValueError("LOKALISE_API_TOKEN is not configured")
+        # Check if it's in environment directly
+        env_token = os.getenv("LOKALISE_API_TOKEN")
+        if env_token:
+            # Environment variable exists but settings didn't pick it up
+            raise ValueError(
+                f"LOKALISE_API_TOKEN found in environment ({env_token[:10]}...) but not in settings. Check your config loading."
+            )
+        else:
+            raise ValueError(
+                "LOKALISE_API_TOKEN is not configured in environment or settings"
+            )
 
 except (ImportError, ValueError) as e:
     # If the app can't be imported due to missing environment variables,
-    # we'll skip the tests that require it
+    # we'll set up for error reporting
     client = None
     settings = None
-    import warnings
-
-    warnings.warn(f"API parity tests will be skipped due to configuration issue: {e}")
+    configuration_error = str(e)
 
 
 class APIParityTester:
@@ -211,8 +228,9 @@ class APIParityTester:
 # Create global tester instance (only if configuration is available)
 try:
     tester = APIParityTester()
-except ValueError:
+except ValueError as e:
     tester = None
+    configuration_error = str(e)
 
 
 # Utility function for manual testing
@@ -221,7 +239,16 @@ async def manual_comparison(
 ):
     """Manual comparison function for development/debugging."""
     if not tester:
-        pytest.skip("API parity testing requires LOKALISE_API_TOKEN to be configured")
+        error_msg = (
+            "API parity testing requires LOKALISE_API_TOKEN to be configured.\n"
+            "Please ensure:\n"
+            "1. LOKALISE_API_TOKEN is set in your .env file\n"
+            "2. The .env file is being loaded by pytest\n"
+            "3. The token is valid and has the required permissions"
+        )
+        if "configuration_error" in globals():
+            error_msg += f"\n\nConfiguration error: {configuration_error}"
+        raise ValueError(error_msg)
 
     result = await tester.test_endpoint_parity(lokalise_endpoint, our_endpoint, params)
 

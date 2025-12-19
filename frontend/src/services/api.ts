@@ -59,7 +59,7 @@ export async function getProjectKeys(params: ProjectKeysParams): Promise<Transla
     }
   });
 
-  const url = `${API_BASE}/projects/${project_id}/keys?${searchParams}`;
+  const url = `${API_BASE}/lokalise/projects/${project_id}/keys?${searchParams}`;
   return fetchApi<TranslationKey[]>(url);
 }
 
@@ -76,7 +76,7 @@ export async function getProjectTranslations(
     }
   });
 
-  const url = `${API_BASE}/projects/${project_id}/translations?${searchParams}`;
+  const url = `${API_BASE}/lokalise/projects/${project_id}/translations?${searchParams}`;
   return fetchApi<Translation[]>(url);
 }
 
@@ -86,7 +86,7 @@ export async function getTranslation(
   translationId: number,
   disableReferences: 0 | 1 = 0
 ): Promise<Translation> {
-  const url = `${API_BASE}/projects/${projectId}/translations/${translationId}?disable_references=${disableReferences}`;
+  const url = `${API_BASE}/lokalise/projects/${projectId}/translations/${translationId}?disable_references=${disableReferences}`;
   return fetchApi<Translation>(url);
 }
 
@@ -96,7 +96,7 @@ export async function updateTranslation(
   translationId: number,
   updateData: TranslationUpdate
 ): Promise<Translation> {
-  const url = `${API_BASE}/projects/${projectId}/translations/${translationId}`;
+  const url = `${API_BASE}/lokalise/projects/${projectId}/translations/${translationId}`;
   return fetchApi<Translation>(url, {
     method: 'PUT',
     body: JSON.stringify(updateData),
@@ -132,7 +132,7 @@ export async function createKeys(
   projectId: string,
   request: KeysCreateRequest
 ): Promise<KeysCreateResponse> {
-  const url = `${API_BASE}/projects/${projectId}/keys`;
+  const url = `${API_BASE}/lokalise/projects/${projectId}/keys`;
   return fetchApi<KeysCreateResponse>(url, {
     method: 'POST',
     body: JSON.stringify(request),
@@ -149,7 +149,7 @@ export async function getProjects(params: ProjectsListParams = {}): Promise<Proj
     }
   });
 
-  const url = `${API_BASE}/projects${searchParams.toString() ? `?${searchParams}` : ''}`;
+  const url = `${API_BASE}/lokalise/projects${searchParams.toString() ? `?${searchParams}` : ''}`;
   return fetchApi<ProjectsListResponse>(url);
 }
 

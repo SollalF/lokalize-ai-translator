@@ -4,8 +4,15 @@ Run these examples to verify your endpoints match Lokalise API exactly.
 """
 
 import asyncio
+import sys
+from pathlib import Path
 
-from .test_api_parity import manual_comparison, tester
+# Add the backend directory to Python path
+backend_root = Path(__file__).parent
+if str(backend_root) not in sys.path:
+    sys.path.insert(0, str(backend_root))
+
+from tests.utils.test_parity import manual_comparison, tester
 
 
 async def test_projects_list():
@@ -18,7 +25,7 @@ async def test_projects_list():
     print("\n📋 Test 1: Projects with statistics and settings")
     await manual_comparison(
         lokalise_endpoint="projects",
-        our_endpoint="api/v1/lokalise/",
+        our_endpoint="api/v1/lokalise/projects/",
         params={"include_statistics": 1, "include_settings": 1, "limit": 3},
     )
 
@@ -26,7 +33,7 @@ async def test_projects_list():
     print("\n📋 Test 2: Projects without statistics and settings")
     await manual_comparison(
         lokalise_endpoint="projects",
-        our_endpoint="api/v1/lokalise/",
+        our_endpoint="api/v1/lokalise/projects/",
         params={"include_statistics": 0, "include_settings": 0, "limit": 2},
     )
 
@@ -34,7 +41,7 @@ async def test_projects_list():
     print("\n📋 Test 3: Projects with team filter")
     await manual_comparison(
         lokalise_endpoint="projects",
-        our_endpoint="api/v1/lokalise/",
+        our_endpoint="api/v1/lokalise/projects/",
         params={
             "filter_team_id": 511396,  # Replace with your team ID
             "include_statistics": 1,
@@ -61,7 +68,7 @@ async def test_single_project():
 
     await manual_comparison(
         lokalise_endpoint=f"projects/{project_id}",
-        our_endpoint=f"api/v1/lokalise/{project_id}",
+        our_endpoint=f"api/v1/lokalise/projects/{project_id}",
     )
 
 
@@ -85,7 +92,7 @@ async def test_project_keys():
     try:
         await manual_comparison(
             lokalise_endpoint=f"projects/{project_id}/keys",
-            our_endpoint=f"api/v1/lokalise/{project_id}/keys",
+            our_endpoint=f"api/v1/lokalise/projects/{project_id}/keys",
             params={"limit": 5},
         )
     except Exception as e:
@@ -111,7 +118,7 @@ async def test_project_languages():
     try:
         await manual_comparison(
             lokalise_endpoint=f"projects/{project_id}/languages",
-            our_endpoint=f"api/v1/lokalise/{project_id}/languages",
+            our_endpoint=f"api/v1/lokalise/projects/{project_id}/languages",
         )
     except Exception as e:
         print(f"⚠️  Languages endpoint not implemented yet: {e}")

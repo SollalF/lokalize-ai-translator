@@ -10835,3 +10835,107 @@ These terms should be translated to fr ...
 2025-07-29 20:45:03,541 - app - INFO - Starting the application...
 2025-07-29 20:46:18,387 - app - INFO - Starting the application...
 2025-07-29 20:46:18,387 - app - INFO - Starting the application...
+2025-07-29 20:53:38,426 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1}
+2025-07-29 20:53:39,446 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 20:53:51,302 - app - INFO - Starting the application...
+2025-07-29 20:53:51,302 - app - INFO - Starting the application...
+2025-07-29 20:58:27,876 - app - INFO - Starting the application...
+2025-07-29 20:58:27,876 - app - INFO - Starting the application...
+2025-07-29 20:58:42,460 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 100}
+2025-07-29 20:58:43,309 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 20:58:43,312 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 100}
+2025-07-29 20:58:44,018 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 20:58:45,342 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 100}
+2025-07-29 20:58:46,093 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 20:59:20,663 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 100}
+2025-07-29 20:59:21,663 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 20:59:21,666 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 100}
+2025-07-29 20:59:22,338 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 20:59:23,131 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 100}
+2025-07-29 20:59:23,813 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:02:27,681 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 3}
+2025-07-29 21:02:28,368 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:02:35,674 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 3}
+2025-07-29 21:02:36,384 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:02:37,701 - app - INFO - Fetching projects with params: {'include_statistics': 0, 'include_settings': 0, 'limit': 2}
+2025-07-29 21:02:38,378 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:02:39,825 - app - INFO - Fetching project 91605055687cac7cd11b97.18753108
+2025-07-29 21:02:41,549 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 1}
+2025-07-29 21:02:42,345 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:02:43,000 - app - INFO - Fetching projects with params: {'include_statistics': 0, 'include_settings': 1, 'limit': 2}
+2025-07-29 21:02:43,955 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:02:44,670 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 0, 'limit': 1}
+2025-07-29 21:02:45,602 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:02:46,302 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 5}
+2025-07-29 21:02:47,035 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:03:48,875 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 3}
+2025-07-29 21:03:49,616 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:03:50,283 - app - INFO - Fetching projects with params: {'include_statistics': 0, 'include_settings': 0, 'limit': 2}
+2025-07-29 21:03:50,970 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:03:51,693 - app - INFO - Fetching projects with params: {'filter_team_id': 511396, 'include_statistics': 1, 'include_settings': 1, 'limit': 1}
+2025-07-29 21:03:52,402 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:03:53,765 - app - INFO - Fetching project 91605055687cac7cd11b97.18753108
+2025-07-29 21:06:46,025 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 3}
+2025-07-29 21:06:46,727 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:06:47,395 - app - INFO - Fetching projects with params: {'include_statistics': 0, 'include_settings': 0, 'limit': 2}
+2025-07-29 21:06:48,109 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:06:49,548 - app - INFO - Fetching project 91605055687cac7cd11b97.18753108
+2025-07-29 21:06:51,091 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 1}
+2025-07-29 21:06:51,788 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:06:52,689 - app - INFO - Fetching projects with params: {'include_statistics': 0, 'include_settings': 1, 'limit': 2}
+2025-07-29 21:06:53,342 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:06:54,058 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 0, 'limit': 1}
+2025-07-29 21:06:54,772 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:06:55,487 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 5}
+2025-07-29 21:06:56,155 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:08:42,888 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 3}
+2025-07-29 21:08:43,573 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:12:16,999 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 3}
+2025-07-29 21:12:17,681 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:15:29,054 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 3}
+2025-07-29 21:15:29,800 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:17:15,832 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 3}
+2025-07-29 21:17:16,558 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:25:41,589 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 3}
+2025-07-29 21:25:42,295 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:25:42,982 - app - INFO - Fetching projects with params: {'include_statistics': 0, 'include_settings': 0, 'limit': 2}
+2025-07-29 21:25:43,676 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:25:45,140 - app - INFO - Fetching project 91605055687cac7cd11b97.18753108
+2025-07-29 21:25:46,749 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 1}
+2025-07-29 21:25:47,842 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:25:48,519 - app - INFO - Fetching projects with params: {'include_statistics': 0, 'include_settings': 1, 'limit': 2}
+2025-07-29 21:25:49,200 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:25:49,970 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 0, 'limit': 1}
+2025-07-29 21:25:50,695 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:25:51,397 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 5}
+2025-07-29 21:25:52,112 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:27:51,048 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 100}
+2025-07-29 21:27:51,838 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-29 21:27:51,840 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 100}
+2025-07-29 21:27:52,522 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-30 08:35:14,338 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 100}
+2025-07-30 08:35:14,416 - app - INFO - Fetching projects with params: {'include_statistics': 1, 'include_settings': 1, 'limit': 100}
+2025-07-30 08:35:15,809 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-30 09:09:34,773 - app - INFO - Fetching projects with params: {'include_statistics': 0, 'include_settings': 0, 'limit': 2}
+2025-07-30 09:09:35,633 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-30 09:10:09,099 - app - INFO - Fetching projects with params: {'include_statistics': 0, 'include_settings': 0, 'limit': 2}
+2025-07-30 09:10:09,848 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-30 09:10:23,894 - app - INFO - Fetching projects with params: {'include_statistics': 0, 'include_settings': 0, 'limit': 2}
+2025-07-30 09:10:24,634 - app - INFO - Raw response data keys: ['projects']
+2025-07-30 09:10:24,634 - app - INFO - Number of projects: 1
+2025-07-30 09:10:24,634 - app - INFO - First project keys before processing: ['project_id', 'project_type', 'name', 'description', 'created_at', 'created_at_timestamp', 'created_by', 'created_by_email', 'team_id', 'team_uuid', 'base_project_language_id', 'base_project_language_uuid', 'base_language_id', 'base_language_iso', 'uuid']
+2025-07-30 09:10:24,634 - app - INFO - First project keys after processing: ['project_id', 'project_type', 'name', 'description', 'created_at', 'created_at_timestamp', 'created_by', 'created_by_email', 'team_id', 'team_uuid', 'base_project_language_id', 'base_project_language_uuid', 'base_language_id', 'base_language_iso', 'uuid']
+2025-07-30 09:10:24,634 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-30 09:10:42,063 - app - INFO - Fetching projects with params: {'include_statistics': 0, 'include_settings': 0, 'limit': 2}
+2025-07-30 09:10:42,807 - app - INFO - Raw response data keys: ['projects']
+2025-07-30 09:10:42,807 - app - INFO - Number of projects: 1
+2025-07-30 09:10:42,807 - app - INFO - First project keys before processing: ['project_id', 'project_type', 'name', 'description', 'created_at', 'created_at_timestamp', 'created_by', 'created_by_email', 'team_id', 'team_uuid', 'base_project_language_id', 'base_project_language_uuid', 'base_language_id', 'base_language_iso', 'uuid']
+2025-07-30 09:10:42,807 - app - INFO - First project keys after processing: ['project_id', 'project_type', 'name', 'description', 'created_at', 'created_at_timestamp', 'created_by', 'created_by_email', 'team_id', 'team_uuid', 'base_project_language_id', 'base_project_language_uuid', 'base_language_id', 'base_language_iso', 'uuid']
+2025-07-30 09:10:42,808 - app - INFO - Final response first project keys: ['project_id', 'project_type', 'name', 'description', 'created_at', 'created_at_timestamp', 'created_by', 'created_by_email', 'team_id', 'team_uuid', 'base_project_language_id', 'base_project_language_uuid', 'base_language_id', 'base_language_iso', 'uuid', 'settings', 'statistics']
+2025-07-30 09:10:42,808 - app - INFO - Retrieved 1 projects from Lokalise
+2025-07-30 09:11:24,456 - app - INFO - Fetching projects with params: {'include_statistics': 0, 'include_settings': 0, 'limit': 2}
+2025-07-30 09:11:25,178 - app - INFO - Raw response data keys: ['projects']
+2025-07-30 09:11:25,178 - app - INFO - Number of projects: 1
+2025-07-30 09:11:25,178 - app - INFO - First project keys before processing: ['project_id', 'project_type', 'name', 'description', 'created_at', 'created_at_timestamp', 'created_by', 'created_by_email', 'team_id', 'team_uuid', 'base_project_language_id', 'base_project_language_uuid', 'base_language_id', 'base_language_iso', 'uuid']
+2025-07-30 09:11:25,178 - app - INFO - Final response first project keys: ['project_id', 'project_type', 'name', 'description', 'created_at', 'created_at_timestamp', 'created_by', 'created_by_email', 'team_id', 'team_uuid', 'base_project_language_id', 'base_project_language_uuid', 'base_language_id', 'base_language_iso', 'uuid']
+2025-07-30 09:11:25,178 - app - INFO - Retrieved 1 projects from Lokalise
